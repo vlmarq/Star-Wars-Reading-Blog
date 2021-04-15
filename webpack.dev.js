@@ -9,7 +9,7 @@ module.exports = merge(common, {
     mode: 'development',
     devtool: 'cheap-module-source-map',
     devServer: {
-        contentBase:  './dist',
+        contentBase: './dist',
         hot: true,
         disableHostCheck: true,
         historyApiFallback: true
@@ -18,12 +18,12 @@ module.exports = merge(common, {
         new FriendlyErrorsWebpackPlugin(),
         new ErrorOverlayPlugin(),
         new PrettierPlugin({
-            parser: "babylon",
+            parser: "babel",
             printWidth: 120,             // Specify the length of line that the printer will wrap on.
             tabWidth: 4,                // Specify the number of spaces per indentation-level.
             useTabs: true,              // Indent lines with tabs instead of spaces.
             bracketSpacing: true,
-            extensions: [ ".js", ".jsx" ],
+            extensions: [".js", ".jsx"],
             jsxBracketSameLine: true,
             semi: true,                 // Print semicolons at the ends of statements.
             encoding: 'utf-8'           // Which encoding scheme to use on files
