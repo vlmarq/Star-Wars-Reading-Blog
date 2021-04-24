@@ -5,7 +5,7 @@ export const Navbar = () => {
 	return (
 		<nav className="navbar navbar-light bg-dark mb-3">
 			<div className="container">
-				<Link to="/demo">
+				<Link to="/">
 					<img
 						className="logo"
 						src="https://static-mh.content.disney.io/starwars/assets/navigation/sw_logo_stacked@2x-52b4f6d33087.png"
