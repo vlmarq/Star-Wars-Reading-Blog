@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { Dropdown } from "react-bootstrap";
+import { Context } from "../store/appContext";
 
 export const Navbar = () => {
+	const { store, actions } = useContext(Context);
+
 	return (
 		<nav className="navbar navbar-light bg-dark mb-3">
 			<div className="container">
@@ -12,8 +16,28 @@ export const Navbar = () => {
 						alt="Star Wars Logo"
 					/>
 				</Link>
+				<Dropdown>
+					<Dropdown.Toggle variant="primary" id="dropdown-basic" className="btn btn-favorites">
+						Favorites <span className="bg-dark p-1 rounded">{store.favorites.length}</span>
+					</Dropdown.Toggle>
 
-				<div className="ml-auto btn-group">
+					<Dropdown.Menu align="right">
+						{store.favorites.map((item, index) => {
+							return (
+								<Dropdown.Item
+									className="d-flex justify-content-between align-items-center"
+									href="#"
+									key={index}
+									onClick={() => actions.deleteFavorite(index)}>
+									{item}
+									<button className="btn">&#128465;</button>
+								</Dropdown.Item>
+							);
+						})}
+					</Dropdown.Menu>
+				</Dropdown>
+
+				{/* <div className="ml-auto btn-group">
 					<button
 						className="btn btn-primary btn-sm btn-favorites dropdown-toggle"
 						data-bs-toggle="dropdown"
@@ -37,7 +61,7 @@ export const Navbar = () => {
 							</button>
 						</li>
 					</ul>
-				</div>
+				</div> */}
 			</div>
 		</nav>
 	);

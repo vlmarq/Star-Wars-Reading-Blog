@@ -8,15 +8,25 @@ import { Stats } from "../component/stats/stats";
 export const Single = props => {
 	const { store, actions } = useContext(Context);
 	const params = useParams();
+	// console.log("PARAMS:", params);
+	const [data, setData] = useState({});
+	const baseURL = process.env.BASE_URL;
+	const type = params.type;
+	const id = params.id;
 
-	const personID = params.personID;
-	const planetID = params.planetID;
-	const starshipID = params.starshipID;
-
-	const [type, setType] = useState(
-		typeof personID !== "undefined" ? "people" : typeof planetID !== "undefined" ? "planets" : "starships"
-	);
-
+	useEffect(() => {
+		fetch(`${baseURL}/${type}/${id}/`)
+			.then(response => response.json())
+			.then(data => setData(data));
+	}, []);
+	// if (typeof store.aString == "string") {
+	// 	console.log("CONTEXT: ", store.aString);
+	// } else {
+	// 	console.log("CONTEXT");
+	// }
+	// const [type, setType] = useState(
+	// 	typeof personID !== "undefined" ? "people" : typeof planetID !== "undefined" ? "planets" : "starships"
+	// );
 	return (
 		<Container fluid>
 			<Row>
@@ -25,10 +35,12 @@ export const Single = props => {
 				</Col>
 				<Col xs={12} md={6}>
 					<h1 className="display-4">
-						{typeof store[type] !== "undefined" &&
+						{data.name}
+
+						{/* {typeof store[type] !== "undefined" &&
 							store[type].length != 0 &&
 							// checks which array within store and returns name value
-							store[type][type === "people" ? personID : type === "planets" ? planetID : starshipID].name}
+							store[type][type === "people" ? personID : type === "planets" ? planetID : starshipID].name} */}
 					</h1>
 					<p>
 						Lucas ipsum dolor sit amet ben darth bespin windu kessel leia lando dagobah skywalker ponda.
@@ -43,10 +55,14 @@ export const Single = props => {
 
 			<hr className="my-4" />
 
-			<Stats />
+			<Stats
+				type={type}
+				data={data}
+				// data={store[type][type === "people" ? personID : type === "planets" ? planetID : starshipID]}
+			/>
 
 			<Link to="/">
-				<span className="btn btn-primary" href="#" role="button">
+				<span className="btn" href="#" role="button">
 					Back home
 				</span>
 			</Link>
